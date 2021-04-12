@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.haibao.hlink</groupId>
+    <artifactId>hlink</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-core</artifactId>
+            <version>1.9.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+    </dependencies>
+
+    <packaging>pom</packaging>
+    <name>hlink</name>
+
+    <url>http://maven.apache.org</url>
+    <description>特征实时流计算开发平台</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <modules>
+        <module>hlink-web-common</module>
+        <module>hlink-sql-common</module>
+        <module>hlink-connectors</module>
+        <module>hlink-function</module>
+        <module>hlink-clients</module>
+        <module>hlink-web-manager</module>
+        <module>hlink-tests</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <scala.binary.version>2.11</scala.binary.version>
+        <flink.version>1.9.2</flink.version>
+        <mysql.version>8.0.18</mysql.version>
+        <mybatis-plus-boot-starter.version>3.3.1.tmp</mybatis-plus-boot-starter.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
+        <hutool-all.version>5.2.5</hutool-all.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <calcite.server.version>1.16.0</calcite.server.version>
+        <guava.version>19.0</guava.version>
+        <output.jar.directory>${project.basedir}/bin</output.jar.directory>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.haibao.hlink</groupId>
+                <artifactId>hlink-web-manager</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haibao.hlink</groupId>
+                <artifactId>hlink-sql-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haibao.hlink</groupId>
+                <artifactId>hlink-web-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haibao.hlink</groupId>
+                <artifactId>hlink-clients</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.haibao.hlink</groupId>
+                <artifactId>hlink-connectors</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

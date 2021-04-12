@@ -1,0 +1,65 @@
+-- -- -- 开启 mini-batch
+-- SET table.exec.mini-batch.enabled=true;
+-- -- -- mini-batch的时间间隔，即作业需要额外忍受的延迟
+-- SET table.exec.mini-batch.allow-latency=1s;
+-- -- -- 一个 mini-batch 中允许最多缓存的数据
+-- SET table.exec.mini-batch.size=1000;
+-- -- -- 开启 local-global 优化
+-- SET table.optimizer.agg-phase-strategy=TWO_PHASE;
+-- --
+-- -- -- 开启 distinct agg 切分
+-- SET table.optimizer.distinct-agg.split.enabled=true;
+
+-- {"user_id": "543462","item_id":"1715", "category_id": "1464116","behavior": "pv", "ts": "2018-11-26T01:00:00Z","work":{"address":"mars","company":"同盾"}}
+
+-- source
+CREATE TABLE user_qt_log (
+    user_id VARCHAR,
+    item_id VARCHAR,
+    category_id VARCHAR,
+    behavior VARCHAR,
+    work  ROW< address VARCHAR,company  VARCHAR>,
+    ts TIMESTAMP
+) WITH (
+    'connector.type' = 'kafka',
+    'connector.version' = 'universal',
+    'connector.topic' = 'obj_qt',
+    'update-mode' = 'append',
+    'connector.properties.0.key' = 'zookeeper.connect',
+    'connector.properties.0.value' = 'localhost:2181',
+    'connector.properties.1.key' = 'bootstrap.servers',
+    'connector.properties.1.value' = 'localhost:9092',
+    'connector.properties.2.key' = 'group.id',
+    'connector.properties.2.value' = 'obj_qt_group',
+    'connector.startup-mode' = 'latest-offset',
+    'format.type' = 'json',
+    'format.fail-on-missing-field' = 'true',
+    'format.derive-schema' = 'true'
+);
+
+-- sink
+CREATE TABLE pvuv_sink (
+    dt  VARCHAR ,
+    pv  BIGINT ,
+    uv  BIGINT,
+    source VARCHAR,
+    res1 VARCHAR
+) WITH (
+    'connector.type' = 'jdbc',
+    'connector.url' = 'jdbc:mysql://10.58.10.195:3306/flink_hlink',
+    'connector.table' = 'pvuv_sink',
+    'connector.username' = 'root',
+    'connector.password' = '123456',
+    'connector.write.flush.max-rows' = '5000',
+    'connector.write.flush.interval' = '2s'
+);
+
+
+INSERT INTO pvuv_sink
+SELECT
+    DATE_FORMAT(ts, 'yyyy-MM-dd HH:00') dt,
+    CAST(1 AS BIGINT) AS pv,
+    CAST(1 AS BIGINT) AS uv,
+    'obj_qt2' as source,
+    work.address as res1
+FROM user_qt_log;

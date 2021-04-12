@@ -1,0 +1,55 @@
+[
+  {
+    "label":"bootstrap.servers",
+    "fieldName":"bootstrap_servers",
+    "type":"inputfield",
+    "required":true,
+    "sequence":2,
+    "minLength":1,
+    "maxLength":100,
+    "defaultValue":"",
+    "readOnly":false,
+    "tips":"your_bootstrap_servers,多个逗号分割",
+    "describe":"",
+    "fieldValue":""
+  },
+  {
+    "label":"connector.topic",
+    "fieldName":"connector_topic",
+    "type":"inputfield",
+    "required":true,
+    "sequence":3,
+    "minLength":1,
+    "maxLength":100,
+    "defaultValue":"",
+    "readOnly":false,
+    "tips":"your_topic",
+    "describe":"",
+    "fieldValue":""
+  },
+  {
+    "label": "connector.sink-partitione",
+    "fieldName": "connector_sink_partitione",
+    "type": "combobox",
+    "required": false,
+    "sequence": 5,
+    "multiple": false,
+    "option": [
+      {
+        "name": "round-robin",
+        "dName": "round-robin",
+        "hasUnion": false
+      },
+      {
+        "name": "fixed",
+        "dName": "fixed",
+        "hasUnion": false
+      }
+    ],
+    "defaultValue":"round-robin",
+    "tips":"可选：从Flink的分区输出分区",
+    "describe":"",
+    "fieldValue":"round-robin"
+  }
+
+]

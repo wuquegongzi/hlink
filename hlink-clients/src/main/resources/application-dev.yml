@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.58.10.195:3306/flink_hlink?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 4c96debb44b4ee2a322fabd5604cfe2b94bdf3bdadd2971d26141289b9851ede6b811ce784ccdae173afcc2df35685df9054066ea172d207fb4d0308b0231b1aba4c00298a5e3aae99ea0ed2ac26ea5e7b93b43f77645ffe51b0c3225a1fd24eb98969c8ff7d60a7867d2d796146417f37468883b95a7d061c5bec58872fbb48
+    open-encryption: true

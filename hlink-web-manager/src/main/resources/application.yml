@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: hlink
+  profiles:
+    active: dev
+  freemarker:
+    cache: false
+    check-template-location: true
+    content-type: text/html; charset=utf-8
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+
+server:
+  max-http-header-size: 102400000
+  http2:
+    enabled: true
+
+logging:
+  config: classpath:logback-spring.xml
+
+mybatis-plus:
+  mapper-locations:
+    classpath:mapper/*.xml
+  global-config:
+    banner: false
+    db-config:
+      update-strategy: not_null
+  configuration:
+    map-underscore-to-camel-case: true
+

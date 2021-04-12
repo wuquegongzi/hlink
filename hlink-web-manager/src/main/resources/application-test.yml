@@ -1,0 +1,137 @@
+server:
+  port: 8080
+  undertow:
+    io-threads: 8
+    # 阻塞任务线程池, 当执行类似servlet请求阻塞IO操作, undertow会从这个线程池中取得线程
+    # 它的值设置取决于系统线程执行任务的阻塞系数，默认值是IO线程数*8
+    worker-threads: 128
+
+spring:
+  #数据库连接
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:mysql://xxx:3306/flink_hlink_test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=CTT
+    username: root
+    password: 123456
+    #连接池
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 120000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  # redis配置
+  redis:
+    host: 127.0.0.1  # IP
+    port: 6379  # 端口号
+    password: 123456  # 密码
+    timeout: 10000
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数
+        max-wait: -1ms  # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        min-idle: 0 # 连接池中的最小空闲连接
+        max-idle: 8 # 连接池中的最大空闲连接
+
+  #邮件发射账户配置
+  mail:
+    username: xxxx@163.com
+  #填写授权码
+    password: xxxxxxx
+  #填写邮箱供应的SMTP地址
+    host: smtp.163.com
+    properties:
+      mail:
+         smtp:
+            ssl:
+               enable: true
+
+  servlet:
+    multipart:
+      #上传单个文件的大小
+      max-file-size: 500MB
+      #上传文件的总大小
+      max-request-size: 50GB
+      #文件上传临界值，超过这个临界值，保存到location
+      file-size-threshold: 10KB
+      #文件上传临时保存目录
+      location: /data01/hlink/app/springupload
+  #设置开启热部署
+  devtools:
+    restart:
+      enabled: false
+
+#flink 相关配置
+flink:
+  client:
+    dir: /data01/hlink/flink-1.9.2
+  shell:
+    # 设置sql作业的提交数据方式，默认ds，即连接数据库。备用方式file，文件.
+    datamode: ds
+    # 设置用于sql作业的提交Jar包路径.
+    jarpath: /data01/hlink/app/hlink-clients.jar
+  job:
+    #设置全局检查点 statebackend  三种State Backend：MemoryStateBackend、FsStateBackend、RocksDBStateBackend 默认MemoryStateBackend
+    checkpoint-statebackend-type: MemoryStateBackend
+    # 全局默认保存点存储路径，默认为空，采取内存存储
+    checkpoint-statebackend-path:
+  udf:
+    # 设置默认的UDF上传路径,共享目录.
+    location: /data01/hlink/flink-share-dir/udf
+  # 设置Flink rest连接相关参数.
+  rest:
+    connectTimeOut: 20000
+    writeTimeOut: 30000
+    readTimeOut: 30000
+    debug: false
+
+
+debug: false
+
+#启用所有的监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+#swagger API 开关
+swagger:
+  enable: true
+#配置此属性为true后,所有资源都会屏蔽输出.
+knife4j:
+  production: false
+  ## 开启Swagger的Basic认证功能,默认是false
+  basic:
+    enable: true
+    ## Basic认证用户名
+    username: admin
+    ## Basic认证密码
+    password: Td@123456
+
+# javamelody数据监控 http://localhost:8080/monitoring
+javamelody:
+  # 启用JavaMelody自动配置
+  enabled: true
+  # 要从监视中排除的数据源名称（可选，以逗号分隔）
+  excluded-datasources:
+  # 启用对Spring服务和控制器的监视
+  spring-monitoring-enabled: true
+  # 为JavaMelody（可选）初始化参数
+  # 参照地址: https://github.com/javamelody/javamelody/wiki/UserGuide#6-optional-parameters
+  init-parameters:
+    # 日志http请求
+    log: true
+    # 从监控中排除图像，css，字体和js网址：
+    #url-exclude-pattern: (/webjars/.*|/css/.*|/images/.*|/fonts/.*|/js/.*)
+    # 以总位数的http请求：
+    #http-transform-pattern: \d+
+    # 补充基本身份验证：
+    authorized-users: admin:admin
+    # 更改默认存储目录：
+    #storage-directory: /tmp/javamelody
+    # 更改默认的监控路径：
+    # monitoring-path: /admin/performance

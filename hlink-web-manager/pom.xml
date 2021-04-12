@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.haibao.hlink</groupId>
+		<artifactId>hlink</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>hlink-web-manager</artifactId>
+
+	<name>hlink-web-manager</name>
+
+	<dependencies>
+		<!-- 公共模块 -->
+		<dependency>
+			<groupId>com.haibao.hlink</groupId>
+			<artifactId>hlink-web-common</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
+		<!-- web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+
+		<!-- 开启springboot 健康检查-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+		<!-- 开启aop -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<!-- ========================= redis相关 ========================== -->
+		<!--redis依赖-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+		
+		<!-- ========================= 数据库相关 ========================== -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+
+		<!-- mybatis-plus begin =================================== -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus-boot-starter.version}</version>
+		</dependency>
+
+		<!-- 代码生成器  -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-generator</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>2.3.29</version>
+		</dependency>
+
+		<!-- 执行 SQL 分析打印 -->
+		<!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
+		<dependency>
+			<groupId>p6spy</groupId>
+			<artifactId>p6spy</artifactId>
+			<version>3.8.7</version>
+		</dependency>
+
+		<!-- mybatis-plus end -->
+
+		<!-- freemarker -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+
+		<!-- json-schema -->
+		<dependency>
+			<groupId>com.github.everit-org.json-schema</groupId>
+			<artifactId>org.everit.json.schema</artifactId>
+			<version>1.12.1</version>
+		</dependency>
+
+		<!-- test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- ===========插件========== -->
+		<!-- mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- 数据库密码加密 -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+		<!-- 分布式锁 https://github.com/lukas-krecan/ShedLock-->
+		<dependency>
+			<groupId>net.javacrumbs.shedlock</groupId>
+			<artifactId>shedlock-spring</artifactId>
+			<version>4.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.javacrumbs.shedlock</groupId>
+			<artifactId>shedlock-provider-jdbc-template</artifactId>
+			<version>4.5.0</version>
+		</dependency>
+
+		<!--springfox begin-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-spring-boot-starter</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>1.5.22</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>1.5.22</version>
+		</dependency>
+
+		<!--  热部署,需自行配置idea -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!--JavaMelody 监控 /monitoring-->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-spring-boot-starter</artifactId>
+			<version>1.77.0</version>
+		</dependency>
+		<!--JavaMelody监控PDF格式文件导出-->
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>com.alibaba</groupId>-->
+			<!--<artifactId>dubbo</artifactId>-->
+			<!--<version>2.8.4</version>-->
+			<!--<exclusions>-->
+				<!--<exclusion>-->
+					<!--<artifactId>spring</artifactId>-->
+					<!--<groupId>org.springframework</groupId>-->
+				<!--</exclusion>-->
+				<!--<exclusion>-->
+					<!--<groupId>com.google.guava</groupId>-->
+					<!--<artifactId>guava</artifactId>-->
+				<!--</exclusion>-->
+			<!--</exclusions>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>log4j</groupId>
+					<artifactId>log4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- 权限认证  ======================== end-->
+
+	</dependencies>
+
+	<build>
+		<finalName>hlink-web-manager</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+
+			<!-- 代码混淆插件 -->
+			<plugin>
+				<dependencies>
+					<dependency>
+						<groupId>net.sf.proguard</groupId>
+						<artifactId>proguard-base</artifactId>
+						<!-- jdk1.8  兼容性还可以 -->
+						<version>6.0.2</version>
+						<scope>runtime</scope>
+					</dependency>
+				</dependencies>
+				<groupId>com.github.wvengen</groupId>
+				<artifactId>proguard-maven-plugin</artifactId>
+				<!-- jdk1.8  兼容性还可以 -->
+				<version>2.0.14</version>
+				<executions>
+					<execution>
+						<!-- 混淆时刻，这里是打包的时候混淆 -->
+						<phase>package</phase>
+						<goals>
+							<!-- 使用插件的什么功能，当然是混淆 -->
+							<goal>proguard</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- 是否将生成的PG文件安装部署 -->
+					<attach>true</attach>
+					<!-- 是否混淆 -->
+					<obfuscate>true</obfuscate>
+					<!-- 指定生成文件分类 -->
+					<attachArtifactClassifier>pg</attachArtifactClassifier>
+					<!-- ProGuard配置参数(可引用cfg配置文件) -->
+					<options>
+						<!-- JDK目标版本1.8-->
+						<option>-target 1.8</option>
+						<!-- 不做收缩（删除注释、未被引用代码） -->
+						<option>-dontshrink</option>
+						<!-- 不做优化（变更代码实现逻辑） -->
+						<option>-dontoptimize</option>
+						<!-- 不路过非公用类文件及成员 -->
+						<option>-dontskipnonpubliclibraryclasses</option>
+						<option>-dontskipnonpubliclibraryclassmembers</option>
+						<!--不用大小写混合类名机制-->
+						<option>-dontusemixedcaseclassnames</option>
+						<!-- 优化时允许访问并修改有修饰符的类和类的成员 -->
+						<option>-allowaccessmodification</option>
+						<!-- 确定统一的混淆类的成员名称来增加混淆 -->
+						<option>-useuniqueclassmembernames</option>
+						<!-- 不混淆所有包名，整体混淆会出现各种各样的问题   程序又不会把你该引用的地方引用好   会直接修改类名  参数名的   建议不去除  有这个标签的话     <option>-keep class !com.package.** { *; }</option> 加入这个标签的报包名程序才会修改 -->
+						<option>-keeppackagenames</option>
+						<option>-adaptclassstrings</option>
+						<!-- <option>-keepdirectories</option> -->
+						<!-- 不混淆所有特殊的类 -->
+						<option>-keepattributes
+							Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumberTable,LocalVariable*Table,*Annotation*,Synthetic,EnclosingMethod</option>
+						<!-- This option will save all original methods parameters in files defined
+                            in -keep sections, otherwise all parameter names will be obfuscate. -->
+						<option>-keepparameternames</option>
+						<option>-keepclassmembers class * {
+							@org.springframework.beans.factory.annotation.Autowired *;
+							@org.springframework.beans.factory.annotation.Value *;
+							}
+						</option>
+						<!-- 混淆这个包下的类     此处需要更改为自己需要混淆的包名-->
+						<option>-keep class !com.haibao.admin.** { *; }</option>
+
+						<!-- 不混淆main方法   此处需要更改为自己的启动类路径 -->
+						<option>-keep class com.haibao.admin.AdminApplication { *; }</option>
+
+						<!-- 不混淆所有的set/get方法，毕竟项目中使用的部分第三方框架（例如Shiro）会用到大量的set/get映射 -->
+						<option>-keepclassmembers public class * {void set*(***);*** get*();}</option>
+						<!-- 不混淆包中的所有类以及类的属性及方法，实体包，混淆了会导致ORM框架及前端无法识别 -->
+
+						<!-- 不对包类的类名进行混淆，但对类中的属性和方法混淆   -->
+						<!--<option>-keep class com.package.util.** </option>-->
+						<!-- <option>-keep class com.example.service.** </option>-->
+
+						<!-- 不混淆包下的所有类名，且类中的方法和属性也不混淆 楼主已经把它注掉了  因为没用到 -->
+						<!--<option>-keep class com.example.redis.** { *; }</option>
+                        <option>-keep class com.example.domain.** { *; }</option>
+                        <option>-keep class com.example.dto.** { *; } </option>
+                        <option>-keep class com.example.config.**{ *; }</option>
+                        <option>-keep class com.example.dao.** { *; }</option>-->
+						<!-- 无视跳过警告  因为修改代码的过程程序检测到有些文件不能更改就会报警告导致失败   如果对自己写的代码比较有信心的话可以直接无视 -->
+						<option>-dontwarn **</option>
+					</options>
+					<!--class 混淆后输出的jar包 -->
+					<outjar>${project.build.finalName}-pg.jar</outjar>
+					<!-- 混淆时需要引用的java库，这些库的类不会做混淆 -->
+					<libs>
+						<lib>${java.home}/lib/rt.jar</lib>
+						<lib>${java.home}/lib/jce.jar</lib>
+					</libs>
+					<!-- 需要做混淆的jar或目录 -->
+					<injar>classes</injar>
+					<!-- 输出目录 -->
+					<outputDirectory>${project.build.directory}</outputDirectory>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
+</project>

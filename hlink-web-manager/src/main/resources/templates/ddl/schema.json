@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "lon": {
+      "type": "number"
+    },
+    "info": {
+      "type": "object",
+      "properties": {
+        "city" : {
+          "type": "string"
+        },
+        "like" : {
+          "type": "string"
+        },
+        "play" : {
+          "type": "string"
+        }
+      }
+    },
+    "info2": {
+      "type": "array",
+      "items": [{
+        "type": "object",
+        "properties": {
+          "city2": {
+            "type": "integer"
+          },
+          "like2": {
+            "type": "string"
+          },
+          "play2": {
+            "type": "string"
+          }
+        }
+      }]
+    },
+    "info3": {
+      "type": "array",
+      "items": [{
+        "type": "string"
+      }]
+    },
+    "rideTime": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

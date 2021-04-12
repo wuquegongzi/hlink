@@ -1,0 +1,147 @@
+<p>
+    目前Schema 仅支持Json Schema解析。
+</p>
+<p>
+    下表显示了JSON模式类型到Flink SQL类型的映射：
+</p>
+<p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1em; color: rgba(0, 0, 0, 0.65); font-family: &quot;Chinese Quote&quot;, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;  white-space: normal; background-color: rgb(255, 255, 255);">
+    <br/>
+</p>
+<table>
+    <thead style="box-sizing: border-box;">
+        <tr style="box-sizing: border-box;" class="firstRow">
+            <th style="box-sizing: border-box; word-break: break-all;" width="272">
+                JSON模式
+            </th>
+            <th style="box-sizing: border-box;" width="252">
+                Flink SQL
+            </th>
+        </tr>
+    </thead>
+    <tbody style="box-sizing: border-box;">
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                object
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                ROW
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                boolean
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                BOOLEAN
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                array
+            </td>
+            <td style="box-sizing: border-box; word-break: break-all;" width="291">
+                ARRAY[_]
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                number
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                DECIMAL
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                integer
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                DECIMAL
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                string
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                VARCHAR
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                string&nbsp;与&nbsp;format: date-time
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                TIMESTAMP
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                string&nbsp;与&nbsp;format: date
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                DATE
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                string&nbsp;与&nbsp;format: time
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                TIME
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box;" width="90">
+                string&nbsp;与&nbsp;encoding: base64
+            </td>
+            <td style="box-sizing: border-box;" width="252">
+                ARRAY[TINYINT]
+            </td>
+        </tr>
+        <tr style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; word-break: break-all;" width="90">
+                null
+            </td>
+            <td style="box-sizing: border-box; word-break: break-all;" width="252">
+                NULL&nbsp;<span style="color: rgb(0, 0, 0);">（尚不支持）</span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1em; color: rgba(0, 0, 0, 0.65); font-family: &quot;Chinese Quote&quot;, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;;  white-space: normal; background-color: rgb(255, 255, 255);">
+    &nbsp;
+</p>
+<p>
+    当前，Flink仅支持<a href="http://json-schema.org/" target="_blank">JSON模式规范</a>&nbsp;的子集draft-07。联盟类型（以及allOf，anyOf，not）尚未支持。
+</p>
+<p>
+    oneOf和类型数组仅用于指定可为空性。
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    以下为示例：
+</p>
+<p>
+    <span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">{</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;type&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;object&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">,</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;properties&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;name&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;sex&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;integer&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;assets&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;number&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;birthday&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;format&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;date&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;address&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;object&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;properties&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;street_address&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;city&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;state&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;role&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;array&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;items&quot;</span>:<span style="box-sizing: border-box;">[<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;object&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;properties&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;company&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;position&quot;</span>:<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;type&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;string&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">}</span>
+</p>
+<p>
+    <span style="font-family: 宋体, SimSun;">上面的定义示例展示了一个常规用户的属性，name-名称、sex-性别、assets-资产、birthday-出生日期、address-地址(对象类嵌套)、role-角色(数组类嵌套) 等。</span>
+</p>
+<p>
+    <br/>
+</p>
+<p>
+    对应的流数据序列化结构为：
+</p>
+<p style="box-sizing: border-box; margin-top: 0px; margin-bottom: 1em; color: rgba(0, 0, 0, 0.65); font-family: &quot;Chinese Quote&quot;, -apple-system, system-ui, &quot;Segoe UI&quot;, &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; white-space: normal; background-color: rgb(255, 255, 255);">
+    <span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">{</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;name&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;张三&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">,</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;sex&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(37, 170, 226); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">1</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">,</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;assets&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(37, 170, 226); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">1000000.05</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">,</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;birthday&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;2002-12-01&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">,</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;address&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;street_address&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;西湖街道001&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;city&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;杭州&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;state&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;中国&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;}</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">,</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold; font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">&quot;role&quot;</span><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">:</span><span style="box-sizing: border-box; color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">[<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;company&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;xxx公益组织&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;position&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;公益专员&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box;">{<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;company&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;xxx大学&quot;</span>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="box-sizing: border-box; color: rgb(146, 39, 143); font-weight: bold;">&quot;position&quot;</span>:<span style="box-sizing: border-box; color: rgb(58, 181, 74); font-weight: bold;">&quot;招生办老师&quot;</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span><br/>&nbsp;&nbsp;&nbsp;&nbsp;]</span><br/><span style="color: rgb(74, 85, 96); font-family: menlo, monospace, Tahoma, 微软雅黑, 幼圆; font-size: 13.2833px; white-space: pre-line; background-color: rgb(255, 255, 255);">}</span>
+</p>
+<p>
+    <span style="box-sizing: border-box; font-weight: bolder;">缺少字段处理：</span>默认情况下，缺少JSON字段设置为null。
+</p>
+<p>
+    <br/>
+</p>

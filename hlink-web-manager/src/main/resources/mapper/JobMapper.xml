@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haibao.admin.web.mapper.JobMapper">
+    <select id="selectJobList" parameterType="com.haibao.admin.web.vo.JobVO"
+            resultType="com.haibao.admin.web.vo.JobVO">
+
+        select t1.id, job_code, job_name, job_type,
+        t1.cluster_id, flink_job_id, job_desc,
+        job_status,parallelism,
+        computing_unit, savepoint_path,
+        t1.version,t1.create_by, t1.create_time,
+        t1.modify_by, t1.modify_time, t1.del_flag,
+        t2.name as clusterName, t2.type as clusterType,
+        t3.dict_label as clusterTypeName
+
+        from t_job t1
+        left join t_cluster t2 on t1.cluster_id=t2.id
+        left join (select dict_value,dict_label from t_dict where dict_type='cluster_type') t3 on t2.type = t3.dict_value
+
+        <where>
+            <if test="jobQuery.jobName!=null and jobQuery.jobName!=''">
+                and t1.job_name like CONCAT('%',#{jobQuery.jobName},'%')
+            </if>
+            <if test="jobQuery.clusterId!=null">
+                and t1.cluster_id=#{jobQuery.clusterId}
+            </if>
+            <if test="jobQuery.jobType!=null">
+                and t1.job_type=#{jobQuery.jobType}
+            </if>
+            <if test="jobQuery.jobStatus!=null">
+                and t1.job_status=#{jobQuery.jobStatus}
+            </if>
+            <if test="jobQuery.createBy!=null">
+                and t1.create_by=#{jobQuery.createBy}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

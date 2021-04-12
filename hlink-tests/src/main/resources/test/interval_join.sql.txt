@@ -1,0 +1,110 @@
+--Interval Join: 间隔连接。场景示例: 一个流Join另一个流一段相对时间内的数据。
+--在使用时注意以下几点:
+--支持Process Time和Event Time。
+--对超出时间范围的数据会自动清除，避免State过大。
+--支持非等值连接。如>=、>、<=、<、BETWEEN ... AND ... 。
+-- Flink DataStream 基于Interval Join实时Join过去一段时间内的数据  https://blog.csdn.net/wangpei1949/article/details/103108474
+
+-- source1
+CREATE TABLE user_log (
+    user_id VARCHAR,
+    item_id VARCHAR,
+    category_id VARCHAR,
+    behavior VARCHAR,
+    ts TIMESTAMP
+) WITH (
+    'connector.type' = 'kafka',
+    'connector.version' = 'universal',
+    'connector.topic' = 'user_behavior',
+    'update-mode' = 'append',
+    'connector.properties.0.key' = 'zookeeper.connect',
+    'connector.properties.0.value' = 'localhost:2181',
+    'connector.properties.1.key' = 'bootstrap.servers',
+    'connector.properties.1.value' = 'localhost:9092',
+    'connector.properties.2.key' = 'group.id',
+    'connector.properties.2.value' = 'testGroup3',
+    'connector.startup-mode' = 'earliest-offset',
+    'format.type' = 'json',
+    'format.fail-on-missing-field' = 'true',
+    'format.json-schema' =
+    '{
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "category_id": {
+          "type": "string"
+        },
+        "behavior": {
+          "type": "string"
+        },
+        "ts": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }'
+--     'format.derive-schema' = 'true'
+);
+
+
+-- source2
+CREATE TABLE user_qt_log (
+    user_id VARCHAR,
+    item_id VARCHAR,
+    category_id VARCHAR,
+    behavior VARCHAR,
+    work  ROW< address VARCHAR,company  VARCHAR>,
+    ts TIMESTAMP
+) WITH (
+    'connector.type' = 'kafka',
+    'connector.version' = 'universal',
+    'connector.topic' = 'obj_qt',
+    'update-mode' = 'append',
+    'connector.properties.0.key' = 'zookeeper.connect',
+    'connector.properties.0.value' = 'localhost:2181',
+    'connector.properties.1.key' = 'bootstrap.servers',
+    'connector.properties.1.value' = 'localhost:9092',
+    'connector.properties.2.key' = 'group.id',
+    'connector.properties.2.value' = 'obj_qt_group',
+    'connector.startup-mode' = 'latest-offset',
+    'format.type' = 'json',
+    'format.fail-on-missing-field' = 'true',
+    'format.derive-schema' = 'true'
+);
+
+-- sink
+CREATE TABLE sink_log (
+    user_id VARCHAR,
+    item_id VARCHAR,
+    category_id VARCHAR,
+    behavior VARCHAR,
+    ts TIMESTAMP,
+    address VARCHAR,
+    company  VARCHAR
+) WITH (
+    'connector.type' = 'kafka',
+    'connector.version' = 'universal',
+    'connector.topic' = 'sink_log',
+    'update-mode' = 'append',
+    'connector.properties.0.key' = 'bootstrap.servers',
+    'connector.properties.0.value' = 'localhost:9092',
+    'connector.property-version' = '1',
+    'format.type' = 'json',
+    'format.property-version' = '1',
+    'format.derive-schema' = 'true',
+    'connector.sink-partitioner'='round-robin',
+    'update-mode' = 'append'
+);
+
+-- INNER JOIN
+insert into sink_log
+  SELECT a.user_id,a.item_id,a.category_id,a.behavior,a.ts,b.work.address,b.work.company
+  FROM  user_log a, user_qt_log  b
+  WHERE
+    a.user_id = b.user_id
+    AND b.ts BETWEEN a.ts - INTERVAL '30' SECOND AND a.ts;

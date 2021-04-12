@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haibao.admin.web.mapper.DsSchemaColumnMapper">
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO `t_ds_schema_column`(
+         `ds_id`, `virtual_id`,`virtual_pid`,`name`,
+         `flink_type`,`basic_type`,`join_key`, `event_time`, `comment`,`level`,
+          `res1`, `res2`, `res3`, `res4`, `res5`)
+        VALUES
+        <foreach collection="list" item="dsc" separator=",">
+            (
+             #{dsc.dsId}, #{dsc.virtualId},#{dsc.virtualPid},#{dsc.name},
+             #{dsc.flinkType}, #{dsc.basicType},#{dsc.joinKey}, #{dsc.eventTime}, #{dsc.comment},#{dsc.level},
+             #{dsc.res1}, #{dsc.res2}, #{dsc.res3}, #{dsc.res4}, #{dsc.res5}
+             )
+        </foreach>
+    </insert>
+</mapper>

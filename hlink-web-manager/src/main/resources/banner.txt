@@ -1,0 +1,20 @@
+                /i
+                //,
+               ///i
+             ,/ ).'i
+              |   )-i
+              |   )i
+              '   )i
+             /    |-
+        _.-./-.  /z_
+         `-. >._\ _ );i.
+          / `-'/`k-'`u)-'`
+         /    )-
+  ,.----'   ) '
+  /      )1`
+ ///v`-v\v
+/v  BP
+
+           HLINK-实时特征加工平台
+
+Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}

@@ -1,0 +1,108 @@
+[
+  {
+    "label":"zookeeper.connect",
+    "fieldName":"zookeeper_connect",
+    "type":"inputfield",
+    "required":true,
+    "sequence":1,
+    "minLength":1,
+    "maxLength":100,
+    "defaultValue":"",
+    "readOnly":false,
+    "tips":"zookeeper连接地址，多个逗号分割",
+    "describe":"",
+    "fieldValue":""
+  },
+  {
+    "label":"bootstrap.servers",
+    "fieldName":"bootstrap_servers",
+    "type":"inputfield",
+    "required":true,
+    "sequence":2,
+    "minLength":1,
+    "maxLength":100,
+    "defaultValue":"",
+    "readOnly":false,
+    "tips":"your_bootstrap_servers,多个逗号分割",
+    "describe":"",
+    "fieldValue":""
+  },
+  {
+    "label":"connector.topic",
+    "fieldName":"connector_topic",
+    "type":"inputfield",
+    "required":true,
+    "sequence":3,
+    "minLength":1,
+    "maxLength":100,
+    "defaultValue":"",
+    "readOnly":false,
+    "tips":"your_topic",
+    "describe":"",
+    "fieldValue":""
+  },
+  {
+    "label":"group.id",
+    "fieldName":"group_id",
+    "type":"inputfield",
+    "required":true,
+    "sequence":4,
+    "minLength":1,
+    "maxLength":100,
+    "defaultValue":"",
+    "readOnly":false,
+    "tips":"your_kafka_consumer_group",
+    "describe":"",
+    "fieldValue":""
+  },
+  {
+    "label": "自动偏移量",
+    "fieldName": "startup_mode",
+    "type": "combobox",
+    "required": true,
+    "sequence": 5,
+    "multiple": false,
+    "option": [
+      {
+        "name": "earliest-offset",
+        "dName": "earliest",
+        "hasUnion": false
+      },
+      {
+        "name": "latest-offset",
+        "dName": "latest",
+        "hasUnion": false
+      },
+      {
+        "name": "group-offsets",
+        "dName": "group",
+        "hasUnion": false
+      },
+      {
+        "name": "specific-offsets",
+        "dName": "specific",
+        "hasUnion": true,
+        "unionFields": [{
+          "label":"特定偏移量",
+          "fieldName":"partition_offset",
+          "type":"inputfield",
+          "required":true,
+          "hidden":true,
+          "sequence":1,
+          "minLength":1,
+          "maxLength":100,
+          "defaultValue":"",
+          "readOnly":false,
+          "tips":"填写特定分区以及偏移量，使用逗号分割。多组使用分号分割。 结构:partition,offset;partition,offset; 例如:0,42;1,300",
+          "describe":"",
+          "fieldValue":""
+        }]
+      }
+    ],
+    "defaultValue":"latest-offset",
+    "tips":"auto.offset.reset",
+    "describe":"",
+    "fieldValue":"latest-offset"
+  }
+
+]
