@@ -52,7 +52,7 @@
 
     taskmanager.numberOfTaskSlots:  10
 
- 指定jar上传路径，放置flink重启资源被删除：
+ 指定jar上传路径，防止flink重启资源被删除：
 
     web.upload.dir: /Users/leon/Documents/items/server/flink-1.9.1/jars/
 
