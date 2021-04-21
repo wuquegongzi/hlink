@@ -25,7 +25,10 @@ Flink 实时特征加工平台，基于[Flink 1.9.2开源版本](https://ci.apac
 
 ## 操作流程
 
-<img src="./Flink实时特征加工-操作流程.svg" alt="Flink实时特征加工-操作流程" style="zoom:67%;" />
+![http-bw][http-bw]
+
+[http-bw]:(https://github.com/swleon/hlink/blob/hlink-1.0-flink1.9.2/res/doc/Flink%E5%AE%9E%E6%97%B6%E7%89%B9%E5%BE%81%E5%8A%A0%E5%B7%A5-%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B.svg)
+
 
 
 
