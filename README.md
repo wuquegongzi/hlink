@@ -90,7 +90,7 @@ web 接口： Read more [here html版](./res/doc/hlink-1.0.0.html)
 SQL开发以及操作流程：  [markdown](./res/doc/index.md)
 
 API截图：
-（https://user-images.githubusercontent.com/29697202/114652987-a00ecd80-9d19-11eb-9fe5-eef2014220a4.png)
+![xxx](https://user-images.githubusercontent.com/29697202/114652987-a00ecd80-9d19-11eb-9fe5-eef2014220a4.png)
 
 ## 原型设计文档
 
